@@ -20,12 +20,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import persistence.PersonDAO;
 
 /**
  *
  * @author magdiel-bruno
  */
-public class EmailServer implements Fachada{
+public class EmailServer implements Fachada{ 
 
     @Override
     public String enviaEmail(Email email) throws RemoteException {
@@ -41,6 +42,7 @@ public class EmailServer implements Fachada{
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(props, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(from, pass);
             }
@@ -66,11 +68,11 @@ public class EmailServer implements Fachada{
 
     @Override
     public void salvar(Pessoa pessoa) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new PersonDAO().add(pessoa);
     }
 
     @Override
     public List<Pessoa> listaPessoas() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new PersonDAO().listar();
     }
 }
