@@ -64,6 +64,11 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
     public long latencia(byte[] array) {
         long tempo1 = System.currentTimeMillis();
         System.out.println(array);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
         long tempo2 = System.currentTimeMillis();
         return tempo2-tempo1;
     }
