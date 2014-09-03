@@ -25,7 +25,7 @@ public class AppMagdielBruno {
         
         //EmailUtil.sendEmail(email);
         
-        //System.out.println(FaultTolerance.ping());
+        System.out.println(FaultTolerance.ping());
         //System.out.println(FaultTolerance.pingServer("10.1.1.120"));
     }
 }

@@ -25,7 +25,8 @@ import javax.mail.internet.MimeMessage;
  * @author magdiel-bruno
  */
 public class EmailUtil {
-    public static void sendEmail(Email email){
+    public static boolean sendEmail(Email email){
+        boolean result = false;
         final String from = "ifpbpod@gmail.com";
         final String pass = "rmi12345";
 
@@ -50,11 +51,16 @@ public class EmailUtil {
             message.setText(email.getMensagem());
 
             Transport.send(message);
+            result = true;
 
         } catch (MessagingException e) {
+            result = false;
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException ex) {
+            result = false;
             Logger.getLogger(EmailUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return result;
     }
 }

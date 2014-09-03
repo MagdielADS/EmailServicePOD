@@ -24,7 +24,7 @@ public class FaultTolerance {
         boolean result = false;
         
         try {
-            URL url = new URL("http://google.com.br");
+            URL url = new URL("http://smtp.gmail.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             result = true;
