@@ -15,14 +15,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author magdiel-bruno
- */
 public class EmailDAO {
 
     public boolean save(Email email) {
-        String sql = "INSERT INTO EMAIL(remetente,destinatarios,assunto,status,mensagem) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO EMAIL(remetente,destinatarios,assunto,ipServidor,status,mensagem) VALUES(?,?,?,?,?,?)";
         try {
             Connection connection = DBConnection.getInstance().getConnection();
 
@@ -31,8 +27,9 @@ public class EmailDAO {
                 stmt.setString(1, email.getRemetente());
                 stmt.setString(2, email.getDestinatarios());
                 stmt.setString(3, email.getAssunto());
-                stmt.setBoolean(4, email.isStatus());
-                stmt.setString(5, email.getMensagem());
+                stmt.setString(4, email.getIpServidor());
+                stmt.setBoolean(5, email.isStatus());
+                stmt.setString(6, email.getMensagem());
                 stmt.executeUpdate();
                 return true;
             } finally {
@@ -67,7 +64,7 @@ public class EmailDAO {
     }
 
     public List<Email> getUnsentEmails() {
-        String sql = "SELECT id,remetente,destinatarios,assunto,status,mensagem FROM email WHERE status = false";
+        String sql = "SELECT id,remetente,destinatarios,assunto,status,mensagem,ipServidor FROM email WHERE status = false";
         List<Email> emails = new ArrayList<Email>();
         try {
             Connection connection = DBConnection.getInstance().getConnection();
@@ -82,6 +79,7 @@ public class EmailDAO {
                     email.setDestinatarios(rs.getString("destinatarios"));
                     email.setAssunto(rs.getString("assunto"));
                     email.setStatus(rs.getBoolean("status"));
+                    email.setIpServidor(rs.getString("ipServidor"));
                     emails.add(email);
                     email = new Email();
                 }

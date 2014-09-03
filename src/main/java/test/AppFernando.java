@@ -18,19 +18,20 @@ public class AppFernando {
     public static void main(String[] args) {
 
         EmailDAO emailDAO = new EmailDAO();
-//        Email email = new Email();
-//        email.setMensagem("Mensagem");
-//        email.setRemetente("Remetente");
-//        email.setDestinatarios("1,2,3,4,5");
-//        email.setAssunto("Assunto");
-//        email.setStatus(false);
-//        emailDAO.save(email);
-//        
+        Email email = new Email();
+        email.setMensagem("Mensagem");
+        email.setRemetente("Remetente");
+        email.setDestinatarios("1,2,3,4,5");
+        email.setAssunto("Assunto");
+        email.setIpServidor("localhost");
+        email.setStatus(false);
+        emailDAO.save(email);
+        
 
-//        emailDAO.updateStatusToSent(5);
+        emailDAO.updateStatusToSent(1);
         List<Email> emails = emailDAO.getUnsentEmails();
-        for (Email email : emails) {
-            System.out.println(email);
+        for (Email email1 : emails) {
+            System.out.println(email1);
         }
 
     }
