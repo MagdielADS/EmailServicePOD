@@ -59,7 +59,7 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
         }
         timer.schedule(new ServerTimer(), 0, 500 * 60);
     }
-
+    
     @Override
     public long latencia(byte[] array) {
         long tempo1 = System.currentTimeMillis();
