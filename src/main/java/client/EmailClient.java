@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package client;
 
 import br.edu.ifpb.emailsharedpod.Email;
@@ -16,6 +15,13 @@ import java.util.List;
  *
  * @author magdiel-bruno
  */
-public class EmailClient{
-    
+public class EmailClient {
+//    
+//    private boolean pingServer(String host){
+//        return FaulTolerance.pingServer(host);
+//    }
+//    
+    public void sendEmail(){
+        
+    }
 }

@@ -18,7 +18,7 @@ public class DBConnection {
     private DBConnection() {
         this.url = "jdbc:postgresql://localhost:5432/pod";
         this.usuario = "postgres";
-        this.senha = "12345";
+        this.senha = "123456";
     }
 
     public static DBConnection getInstance() {

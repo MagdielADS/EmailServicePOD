@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class EmailDAO {
 
     public boolean save(Email email) {
-        String sql = "INERT INTO EMAIL(remetente,destinatarios,assunto,status,mensagem) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO EMAIL(remetente,destinatarios,assunto,status,mensagem) VALUES(?,?,?,?,?)";
         try {
             Connection connection = DBConnection.getInstance().getConnection();
 
@@ -33,7 +33,7 @@ public class EmailDAO {
                 stmt.setString(3, email.getAssunto());
                 stmt.setBoolean(4, email.isStatus());
                 stmt.setString(5, email.getMensagem());
-                stmt.executeQuery();
+                stmt.executeUpdate();
                 return true;
             } finally {
                 stmt.close();
@@ -74,8 +74,8 @@ public class EmailDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             try {
                 ResultSet rs = stmt.executeQuery();
+                Email email = new Email();
                 while (rs.next()) {
-                    Email email = new Email();
                     email.setId(rs.getInt("id"));
                     email.setMensagem(rs.getString("mensagem"));
                     email.setRemetente(rs.getString("remetente"));
@@ -83,6 +83,7 @@ public class EmailDAO {
                     email.setAssunto(rs.getString("assunto"));
                     email.setStatus(rs.getBoolean("status"));
                     emails.add(email);
+                    email = new Email();
                 }
                 return emails;
             } finally {
@@ -95,5 +96,5 @@ public class EmailDAO {
             return null;
         }
     }
-    
+
 }
