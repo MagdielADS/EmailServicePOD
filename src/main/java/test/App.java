@@ -6,10 +6,8 @@
 
 package test;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import persistence.DBConnection;
+import br.edu.ifpb.emailsharedpod.Pessoa;
+import persistence.PersonDAO;
 
 /**
  *
@@ -17,11 +15,18 @@ import persistence.DBConnection;
  */
 public class App {
     public static void main(String[] args) {
-        try {
-            DBConnection.getInstance().getConnection();
-            System.out.println("OK");
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        PersonDAO pd = new PersonDAO();
+        
+        //Pessoa p = new Pessoa();
+        //p.setNome("Fernando");
+        //p.setEmail("fernandof@gmail.com");
+                        
+//        if(pd.add(p)) {
+//            System.out.println("SALVO!");
+//        }
+        
+        for(Pessoa pessoa : pd.listar()) {
+            System.out.println(pessoa);
+        }        
     }
 }
