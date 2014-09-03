@@ -27,7 +27,7 @@ import persistence.PersonDAO;
  *
  * @author magdiel-bruno
  */
-public class EmailServer implements Fachada{
+public class EmailServer implements Fachada{ 
 
     @Override
     public String enviaEmail(Email email) throws RemoteException {
@@ -41,6 +41,7 @@ public class EmailServer implements Fachada{
     public void salvar(Pessoa pessoa) throws RemoteException {
         PersonDAO pdb = new PersonDAO();
         pdb.add(pessoa);
+        new PersonDAO().add(pessoa);
     }
 
     @Override
