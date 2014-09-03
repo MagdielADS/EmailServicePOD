@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package persistence;
 
 import java.sql.Connection;
@@ -24,7 +18,7 @@ public class DBConnection {
     private DBConnection() {
         this.url = "jdbc:postgresql://localhost:5432/pod";
         this.usuario = "postgres";
-        this.senha = "123456";
+        this.senha = "12345";
     }
 
     public static DBConnection getInstance() {
