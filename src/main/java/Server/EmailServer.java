@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Server;
 
 import br.edu.ifpb.emailsharedpod.Email;
@@ -26,14 +25,14 @@ import timer.ServerTimer;
  *
  * @author magdiel-bruno
  */
-public class EmailServer extends UnicastRemoteObject implements Fachada{ 
+public class EmailServer extends UnicastRemoteObject implements Fachada {
 
-    public EmailServer() throws RemoteException{
+    public EmailServer() throws RemoteException {
         super();
     }
-    
+
     @Override
-    public String enviaEmail(Email email) throws RemoteException {        
+    public String enviaEmail(Email email) throws RemoteException {
         new EmailDAO().save(email);
         return "Your email has been received and eventually will be sent";
     }
@@ -47,7 +46,7 @@ public class EmailServer extends UnicastRemoteObject implements Fachada{
     public List<Pessoa> listaPessoas() throws RemoteException {
         return new PersonDAO().listar();
     }
-    
+
     public static void main(String[] args) throws AlreadyBoundException {
         Registry registry;
         Timer timer = new Timer();
@@ -58,6 +57,14 @@ public class EmailServer extends UnicastRemoteObject implements Fachada{
         } catch (RemoteException ex) {
             Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        timer.schedule(new ServerTimer(), 0, 500*60);
+        timer.schedule(new ServerTimer(), 0, 500 * 60);
+    }
+
+    @Override
+    public long latencia(byte[] array) {
+        long tempo1 = System.currentTimeMillis();
+        System.out.println(array);
+        long tempo2 = System.currentTimeMillis();
+        return tempo2-tempo1;
     }
 }
