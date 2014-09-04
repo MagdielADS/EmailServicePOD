@@ -51,7 +51,6 @@ public class login extends HttpServlet {
                 Fachada fachada = (Fachada) registry.lookup("Fachada");
                 List<Pessoa> pessoas = fachada.listaPessoas();
                 request.getSession().setAttribute("pessoas", pessoas);
-                System.out.println(pessoas.size());
             } catch (RemoteException ex) {
                 Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NotBoundException ex) {

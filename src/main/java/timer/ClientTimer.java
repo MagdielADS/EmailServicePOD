@@ -34,7 +34,6 @@ public class ClientTimer extends TimerTask {
                 if (FaultTolerance.pingServer(email.getIpServidor())) {
                     try {
                         long t0 = System.currentTimeMillis();
-                        System.out.println("Ip server: " + email.getIpServidor());
                         Registry registry = LocateRegistry.getRegistry(email.getIpServidor(), 9999);
                         Fachada fachada = (Fachada) registry.lookup("Fachada");
 
@@ -52,7 +51,6 @@ public class ClientTimer extends TimerTask {
                         long tt = tf - t0;
 
                         float latencia = tt - tOp;
-                        System.out.println("Tempo de operação: "+tOp);
 
                         float tBanda = (1024 / (latencia / 2)) * 1000;
 
@@ -60,7 +58,6 @@ public class ClientTimer extends TimerTask {
 
                         fachada.enviaEmail(email);
                         emailDAO.updateStatusToSentEmailCliente(email.getId());
-                        System.out.println(email.getId());
 
                     } catch (RemoteException ex) {
                         response = "Servidor indisponível";
@@ -74,7 +71,5 @@ public class ClientTimer extends TimerTask {
         }else{
             response = "Não há email para ser enviado";
         }
-        
-        System.out.println(response);
     }
 }
