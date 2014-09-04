@@ -69,6 +69,6 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
         } catch (RemoteException ex) {
             System.out.println("Servidor inalcançável");
         }
-        timer.schedule(new ServerTimer(), 0, 10 * 60);
+        timer.schedule(new ServerTimer(), 0, 500 * 60);
     }
 }
