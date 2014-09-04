@@ -1,32 +1,41 @@
 <%-- 
-    Document   : newMessage
-    Created on : 03/09/2014, 19:43:48
-    Author     : kelsonsd
+    Document   : index
+    Created on : 4-Sep-2014, 12:43:40 AM
+    Author     : Fernando
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/EmailServicePOD/css/estilo.css" />
-        <title>Nova Mensagem</title>        
+        <title>Email POD</title>
+        <link href= "bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <script src="bootstrap/js/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <link href="css/styles.css" rel="stylesheet">
     </head>
     <body>
-        <div id="div-nova-mensagem">
-            <label>PROJETO 3 POD - EMAIL</label><br /><br /><br />
-            <label>Para:</label>
-            <input type="text" name="para" size="45" /><br /><br />        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <h1 class="text-center login-title">Email POD</h1>
+                    <div class="account-wall">
+                        <img class="profile-img img-rounded" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                             alt="">
+                        <form class="form-signin" action="login" method="post">
+                            <input type="text" class="form-control" placeholder="IP SERVIDOR" name="ip" required autofocus>
+                            <input type="text" class="form-control" placeholder="Seu Nome" name="remetente" required>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+                        </form>
+                    </div>
+                        <c:if test="${erro != null}">
+                            <div class="alert alert-danger col-xs-12 erro">${erro}</div>
+                        </c:if>
+                </div>
 
-            <label>De:</label>
-            <input type="text" name="de" size="47" /><br /><br />
-
-            <label>Assunto:</label>
-            <input type="text" name="assunto" size="65" /><br /><br />
-
-            <textarea id="id-textarea" name="texto" rows="10" cols="59"></textarea> <br /><br />
-            <input id="botao-enviar" class="botoes" type="submit" value="enviar" />
-            <input id="botao-cancelar" class="botoes" type="button" value="cancelar" />        
+            </div>
         </div>
     </body>
 </html>

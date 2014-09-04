@@ -3,25 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package servlet;
 
-import br.edu.ifpb.emailsharedpod.Email;
+import br.edu.ifpb.emailsharedpod.Fachada;
+import br.edu.ifpb.emailsharedpod.Pessoa;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistence.EmailDAO;
+import tolerance.FaultTolerance;
 
 /**
  *
  * @author Fernando
  */
-@WebServlet(name = "enviaEmail", urlPatterns = {"/enviaEmail"})
-public class enviaEmail extends HttpServlet {
+@WebServlet(name = "login", urlPatterns = {"/login"})
+public class login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,27 +41,28 @@ public class enviaEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            
-            EmailDAO emailDAO = new EmailDAO();
-            
-            Email email = new Email();
-            email.setAssunto(request.getParameter("assunto"));
-            email.setDestinatarios(request.getParameter("para"));
-            email.setIpServidor(String.valueOf(request.getSession().getAttribute("ip")));
-            email.setMensagem(request.getParameter("texto"));
-            email.setRemetente(String.valueOf(request.getSession().getAttribute("remetente")));
-            email.setStatus(false);
-            
-            emailDAO.saveCliente(email);
-            
+        response.setCharacterEncoding("UTF-8");
+
+        if (FaultTolerance.pingServer(request.getParameter("ip"))) {
+            request.getSession().setAttribute("ip", request.getParameter("ip"));
+            request.getSession().setAttribute("remetente", request.getParameter("remetente"));
+            Registry registry = LocateRegistry.getRegistry(request.getParameter("ip"), 9999);
+            try {
+                Fachada fachada = (Fachada) registry.lookup("Fachada");
+                List<Pessoa> pessoas = fachada.listaPessoas();
+                request.getSession().setAttribute("pessoas", pessoas);
+                System.out.println(pessoas.size());
+            } catch (RemoteException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            }
             response.sendRedirect("enviarEmail.jsp");
-            
-        } finally {
-            out.close();
+        } else {
+            request.setAttribute("erro", "Servidor Inalcançável");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

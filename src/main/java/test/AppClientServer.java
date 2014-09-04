@@ -12,10 +12,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author magdiel-bruno
- */
+
 public class AppClientServer {
     public static void main(String[] args) {
         try {
