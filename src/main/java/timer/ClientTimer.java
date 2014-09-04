@@ -35,7 +35,8 @@ public class ClientTimer extends TimerTask {
                 if (FaultTolerance.pingServer(email.getIpServidor())) {
                     try {
                         long t0 = System.currentTimeMillis();
-                        Registry registry = LocateRegistry.getRegistry(email.getIpServidor());
+                        System.out.println("Ip server: "+ email.getIpServidor());
+                        Registry registry = LocateRegistry.getRegistry(email.getIpServidor(),9999);
                         Fachada fachada = (Fachada) registry.lookup("Fachada");
                         
                         byte[] request = new byte[1024];
