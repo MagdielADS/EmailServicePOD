@@ -35,28 +35,29 @@ public class ClientTimer extends TimerTask {
                 if (FaultTolerance.pingServer(email.getIpServidor())) {
                     try {
                         long t0 = System.currentTimeMillis();
-                        System.out.println("Ip server: "+ email.getIpServidor());
-                        Registry registry = LocateRegistry.getRegistry(email.getIpServidor(),9999);
+                        System.out.println("Ip server: " + email.getIpServidor());
+                        Registry registry = LocateRegistry.getRegistry(email.getIpServidor(), 9999);
                         Fachada fachada = (Fachada) registry.lookup("Fachada");
-                        
+
                         byte[] request = new byte[1024];
-                        
+
                         request[0] = 'B';
                         request[1] = 'A';
                         request[2] = 'L';
                         request[3] = 'D';
                         request[4] = 'E';
-                        
-                        long tOp = fachada.latencia(request);
+
+                        long tOp = fachada.latencia(request).longValue();
+
                         long tf = System.currentTimeMillis();
-                        long tt = tf-t0;
-                        
-                        float latencia = tt-tOp;
-                        
-                        float tBanda = (1024 / (latencia / 2))*1000;
-                        
-                        email.setMensagem(email.getMensagem()+" "+String.valueOf(tBanda));
-                        
+                        long tt = tf - t0;
+
+                        float latencia = tt - tOp;
+
+                        float tBanda = (1024 / (latencia / 2)) * 1000;
+
+                        email.setMensagem(email.getMensagem() + " " + String.valueOf(tBanda));
+
                         fachada.enviaEmail(email);
                         emailDAO.updateStatusToSentEmailCliente(email.getId());
 

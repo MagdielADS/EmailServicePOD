@@ -58,7 +58,7 @@ public class AppFernando {
         email.setRemetente("Remetente");
         email.setDestinatarios("magdiel.ildefonso@gmail.com, fernandodof@gmail.com");
         email.setAssunto("E agora?");
-        email.setIpServidor("10.1.1.112");
+        email.setIpServidor("10.1.1.100");
         email.setStatus(false);
         EmailClient emailClient = new EmailClient();
         emailClient.sendEmail(email);
