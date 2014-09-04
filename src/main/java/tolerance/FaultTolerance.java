@@ -45,7 +45,7 @@ public class FaultTolerance {
             Socket socket = new Socket(host, 9999);
             result = true;
         } catch (IOException ex) {
-            Logger.getLogger(FaultTolerance.class.getName()).log(Level.SEVERE, null, ex);
+            result = false;
         }
         return result;
     }
