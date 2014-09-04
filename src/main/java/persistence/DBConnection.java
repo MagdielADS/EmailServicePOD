@@ -16,7 +16,7 @@ public class DBConnection {
 
     //Verifiquem sua senha e login do postgres
     private DBConnection() {
-        this.url = "jdbc:postgresql://localhost:5432/pod";
+        this.url = "jdbc:postgresql://localhost:5433/pod";
         this.usuario = "postgres";
         this.senha = "123456";
     }

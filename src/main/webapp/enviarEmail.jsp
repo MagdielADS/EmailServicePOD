@@ -46,6 +46,22 @@
                     <input id="${pessoa.nome} ${pessoa.email}" value="${pessoa.email}" type="button" class="emails btn btn-primary btn-large col-xs-12" onclick="carregarPesssoas(this)"/></br>
                 </c:forEach>
             </div>
+               
+                <c:if test="${sucesso!=null}">
+                    <c:choose>
+                        <c:when test="${sucesso == true}">
+                            <div class="pull-left alert alert-success alert-dismissable">
+                                Your email has been received and eventually will be sent
+                            </div>
+                        </c:when>
+                        <c:when test="${sucesso == false}">
+                            <div class="pull-left alert alert-danger alert-dismissable">
+                                Your email has not been received
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </c:if>
+            
         </div>
     </body>
 </html>

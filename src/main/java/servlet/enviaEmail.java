@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package servlet;
 
 import br.edu.ifpb.emailsharedpod.Email;
@@ -37,9 +36,9 @@ public class enviaEmail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
+
             EmailDAO emailDAO = new EmailDAO();
-            
+
             Email email = new Email();
             email.setAssunto(request.getParameter("assunto"));
             email.setDestinatarios(request.getParameter("para"));
@@ -47,11 +46,14 @@ public class enviaEmail extends HttpServlet {
             email.setMensagem(request.getParameter("texto"));
             email.setRemetente(String.valueOf(request.getSession().getAttribute("remetente")));
             email.setStatus(false);
+
+            if (emailDAO.saveCliente(email)) {;
+                request.setAttribute("sucesso", true);
+            } else {
+                request.setAttribute("sucesso", false);
+            }
             
-            emailDAO.saveCliente(email);
-            
-            response.sendRedirect("enviarEmail.jsp");
-            
+            request.getRequestDispatcher("enviarEmail.jsp").forward(request, response);
         } finally {
             out.close();
         }

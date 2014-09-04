@@ -19,24 +19,7 @@ function carregarPesssoas(element) {
     }
 
     var numuerosDeBotaos = document.getElementsByClassName('emails');
-//    if (pessoasArray.length === 6) {
-//        for (i = 0; i < numuerosDeBotaos.length; i++) {
-//            if (pessoasArray .indexOf(numuerosDeBotaos[i].id) === -1) {
-//                numuerosDeBotaos[i].disabled = true;
-//                numuerosDeBotaos[i].style.color = 'grey';
-//                numuerosDeBotaos[i].style.fontWeight = 'normal';
-//            }
-//        }
-//    } else {
-//        for (i = 0; i < numuerosDeBotaos.length; i++) {
-//            if (pessoasArray .indexOf(numuerosDeBotaos[i].id) === -1) {
-//                numuerosDeBotaos[i].disabled = false;
-//                numuerosDeBotaos[i].style.color = 'white';
-//                numuerosDeBotaos[i].style.fontWeight = 'normal';
-//            }
-//        }
-//    
-//    }
+
     pessoasArray.sort(function(a, b) {
         return a - b
     });
