@@ -9,7 +9,6 @@ import br.edu.ifpb.emailsharedpod.Email;
 import br.edu.ifpb.emailsharedpod.Fachada;
 import br.edu.ifpb.emailsharedpod.Pessoa;
 import client.EmailClient;
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistence.EmailDAO;
+import persistence.PersonDAO;
 
 /**
  *
@@ -28,6 +28,7 @@ public class AppFernando {
     public static void main(String[] args) {
 
         EmailDAO emailDAO = new EmailDAO();
+        PersonDAO personDAO = new PersonDAO();
 //        Email email = new Email();
 //        email.setMensagem("Mensagem");
 //        email.setRemetente("Remetente");
@@ -53,15 +54,44 @@ public class AppFernando {
 //            for (Pessoa pessoa : pessoas) {
 //                System.out.println(pessoa);
 //            }
-        Email email = new Email();
-        email.setMensagem("Mensagem");
-        email.setRemetente("Remetente");
-        email.setDestinatarios("magdiel.ildefonso@gmail.com, fernandodof@gmail.com");
-        email.setAssunto("E agora?");
-        email.setIpServidor("10.1.1.100");
-        email.setStatus(false);
-        EmailClient emailClient = new EmailClient();
-        emailClient.sendEmail(email);
+
+        Registry registry;
+//        try {
+//            registry = LocateRegistry.getRegistry("192.168.0.102", 9999);
+//            Fachada fachada = (Fachada) registry.lookup("Fachada");
+            
+            for (int i = 0; i < 15; i++) {
+                Pessoa p = new Pessoa();
+                p.setNome("Pessoa"+i);
+                p.setEmail("pessoa"+i+"@gmail.com");
+                
+                personDAO.add(p);
+//                fachada.salvar(p);
+                
+//                Email e = new Email();
+//                e.setAssunto("Teste de extresse3");
+//                e.setDestinatarios("magdiel.ildefonso@gmail.com"+i);
+//                e.setIpServidor("192.168.0.102");
+//                e.setMensagem("Ta chegando "+i);
+//                e.setRemetente("Magdiel");
+//                e.setStatus(false);
+//                emailDAO.saveCliente(e);
+            }
+            
+//            List<Pessoa> pessoas = fachada.listaPessoas();
+//            
+//            for (Pessoa pessoa : pessoas) {
+//                System.out.println(pessoa.getId()+" - "+pessoa.getEmail());
+//            }
+            
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(AppFernando.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (NotBoundException ex) {
+//            Logger.getLogger(AppFernando.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        
+        //emailClient.sendEmail(email);
 
     }
 }

@@ -33,10 +33,11 @@ public class AppMagdielBruno {
         pdb.add(p);
         p.setNome("Kelson");
         p.setEmail("kelsonsd@gmail.com");
-        pdb.add(p);
+        //pdb.add(p);
+        
         
         
         //System.out.println(FaultTolerance.ping());
-        //System.out.println(FaultTolerance.pingServer("10.1.1.120"));
+        System.out.println(FaultTolerance.pingServer("192.168.0.102"));
     }
 }

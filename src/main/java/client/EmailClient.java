@@ -22,6 +22,6 @@ public class EmailClient {
     
     public static void main(String[] args) {
         Timer timer = new Timer();
-        timer.schedule(new ClientTimer(), 0, 500*60);
+        timer.schedule(new ClientTimer(), 0, 100*60);
     }
 }

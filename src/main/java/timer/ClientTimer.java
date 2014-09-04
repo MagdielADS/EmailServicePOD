@@ -7,15 +7,12 @@ package timer;
 
 import br.edu.ifpb.emailsharedpod.Email;
 import br.edu.ifpb.emailsharedpod.Fachada;
-import client.EmailClient;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import persistence.EmailDAO;
 import tolerance.FaultTolerance;
 
@@ -29,8 +26,10 @@ public class ClientTimer extends TimerTask {
     public void run() {
         EmailDAO emailDAO = new EmailDAO();
         List<Email> emails = emailDAO.getUnsentEmailsCliente();
+        String response = null;
 
         if (!emails.isEmpty()) {
+            response = "HA EMAIL";
             for (Email email : emails) {
                 if (FaultTolerance.pingServer(email.getIpServidor())) {
                     try {
@@ -53,22 +52,29 @@ public class ClientTimer extends TimerTask {
                         long tt = tf - t0;
 
                         float latencia = tt - tOp;
+                        System.out.println("Tempo de operação: "+tOp);
 
                         float tBanda = (1024 / (latencia / 2)) * 1000;
 
-                        email.setMensagem(email.getMensagem() + " " + String.valueOf(tBanda));
+                        email.setMensagem(email.getMensagem() + "\nCurrent bandwidth: " + String.valueOf(tBanda));
 
                         fachada.enviaEmail(email);
                         emailDAO.updateStatusToSentEmailCliente(email.getId());
+                        System.out.println(email.getId());
 
                     } catch (RemoteException ex) {
-                        Logger.getLogger(EmailClient.class.getName()).log(Level.SEVERE, null, ex);
+                        response = "Servidor indisponível";
                     } catch (NotBoundException ex) {
-                        Logger.getLogger(EmailClient.class.getName()).log(Level.SEVERE, null, ex);
+                        response = "Servidor indisponível";
                     }
+                }else{
+                    response = "Servidor indisponível ping: "+FaultTolerance.pingServer(email.getIpServidor());
                 }
             }
+        }else{
+            response = "Não há email para ser enviado";
         }
+        
+        System.out.println(response);
     }
-
 }

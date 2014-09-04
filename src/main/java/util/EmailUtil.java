@@ -58,7 +58,6 @@ public class EmailUtil {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException ex) {
             result = false;
-            Logger.getLogger(EmailUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return result;

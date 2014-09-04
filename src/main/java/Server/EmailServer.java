@@ -70,6 +70,6 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
         } catch (RemoteException ex) {
             Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        timer.schedule(new ServerTimer(), 0, 500 * 60);
+        timer.schedule(new ServerTimer(), 0, 10 * 60);
     }
 }

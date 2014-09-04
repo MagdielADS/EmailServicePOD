@@ -11,8 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,10 +27,8 @@ public class FaultTolerance {
             connection.connect();
             result = true;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
             result = false;
         } catch (IOException ex) {
-            ex.printStackTrace();
             result = false;
         }
         

@@ -22,11 +22,11 @@ public class ServerTimer extends TimerTask {
     public void run() {
         EmailDAO edb = new EmailDAO();
         List<Email> emails = edb.getUnsentEmails();
-        
-        if(!emails.isEmpty()){
-            if (FaultTolerance.ping()) {
-                for (Email email : emails) {
-                    if (EmailUtil.sendEmail(email)) {
+
+        if (!emails.isEmpty()) {
+            for (Email email : emails) {
+                if (FaultTolerance.ping()) {
+                    if(EmailUtil.sendEmail(email)){
                         edb.updateStatusToSent(email.getId());
                     }
                 }
