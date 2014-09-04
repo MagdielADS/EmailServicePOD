@@ -68,7 +68,7 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
             registry = LocateRegistry.createRegistry(9999);
             registry.bind("Fachada", new EmailServer());
         } catch (RemoteException ex) {
-            Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Servidor inalcançável");
         }
         timer.schedule(new ServerTimer(), 0, 10 * 60);
     }
