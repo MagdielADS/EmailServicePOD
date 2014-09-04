@@ -46,19 +46,6 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
     public List<Pessoa> listaPessoas() throws RemoteException {
         return new PersonDAO().listar();
     }
-
-    public static void main(String[] args) throws AlreadyBoundException {
-        Registry registry;
-        Timer timer = new Timer();
-
-        try {
-            registry = LocateRegistry.createRegistry(10888);
-            registry.bind("Fachada", new EmailServer());
-        } catch (RemoteException ex) {
-            Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        timer.schedule(new ServerTimer(), 0, 500 * 60);
-    }
     
     @Override
     public long latencia(byte[] array) {
@@ -71,5 +58,18 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
         }
         long tempo2 = System.currentTimeMillis();
         return tempo2-tempo1;
+    }
+
+    public static void main(String[] args) throws AlreadyBoundException {
+        Registry registry;
+        Timer timer = new Timer();
+
+        try {
+            registry = LocateRegistry.createRegistry(9999);
+            registry.bind("Fachada", new EmailServer());
+        } catch (RemoteException ex) {
+            Logger.getLogger(EmailServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        timer.schedule(new ServerTimer(), 0, 500 * 60);
     }
 }
