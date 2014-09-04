@@ -50,7 +50,6 @@ public class EmailServer extends UnicastRemoteObject implements Fachada {
     @Override
     public Long latencia(byte[] array) {
         long tempo1 = System.currentTimeMillis();
-        System.out.println(array);
         try {
             Thread.sleep(50);
         } catch (InterruptedException ex) {
